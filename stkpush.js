@@ -1,7 +1,6 @@
 const generateAccessToken  = require("./generateAccess")
 
-const token =  async() => {
-   const token = await generateAccessToken()
-   console.log(token)
+// Function to generate a timestamp (format: YYYYMMDDHHmmss)
+async function getTimeStamp(){
+
 }
-token()
