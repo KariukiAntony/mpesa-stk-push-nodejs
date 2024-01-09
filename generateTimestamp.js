@@ -1,5 +1,5 @@
 // the timestamp should be in this format, YYYYMMDDHHmmss
-function getdate() {
+function getTimeStamp() {
 
    function formatdate(time) {
      time = time.toString();
@@ -16,4 +16,4 @@ function getdate() {
    return `${year}${month}${day}${hours}${minutes}${seconds}`
  }
 
-module.exports = getdate
+module.exports = getTimeStamp
