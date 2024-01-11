@@ -33,7 +33,7 @@ async function  initiateStkPush(){
          }
       );
 
-      console.log(response.data); // Assuming response.data contains the server's response
+      console.log(response.data);
    } catch (error) {
       console.error(error.message);
    }
