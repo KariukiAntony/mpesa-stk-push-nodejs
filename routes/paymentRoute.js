@@ -1,8 +1,9 @@
 const express = require("express");
-const { initiateStkPush } = require("../controllers/initiateStkPush");
+const { initiateStkPush, stkPushCallback } = require("../controllers/initiateStkPush");
 
 const router = express.Router();
 
-router.get("/initiateStkPush", initiateStkPush)
+router.post("/initiateStkPush", initiateStkPush)
+router.post("/stkPushCallback/:orderID", stkPushCallback )
 
 module.exports = { router };

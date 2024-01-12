@@ -29,4 +29,4 @@ async function generateAccessToken() {
   }
 }
 
-module.exports = { generateAccessToken };
+module.exports = { generateAccessToken};
