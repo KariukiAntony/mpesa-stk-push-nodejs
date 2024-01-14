@@ -1,7 +1,7 @@
 const { generateAccessToken } = require("../middlewares/generateAccess");
 const { getTimeStamp } = require("../utils/generateTimestamp");
 const createError = require("http-errors");
-const axios  = require("axios")
+const axios = require("axios");
 
 const initiateStkPush = async (req, res, next) => {
   const { amount, phone, orderID } = req.body;
@@ -17,7 +17,7 @@ const initiateStkPush = async (req, res, next) => {
   const shortCode = process.env.shortCode;
   const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
   try {
-     const response = await axios.post(
+    const response = await axios.post(
       url,
       {
         BusinessShortCode: shortCode,
@@ -39,20 +39,26 @@ const initiateStkPush = async (req, res, next) => {
         },
       }
     );
-    const decodedObject = JSON.stringify(response.data)
-    res.status(200).json(decodedObject);
+    // const decodedObject = JSON.stringify(response.data)
+    const {
+      MerchantRequestID,
+      CheckoutRequestID,
+      ResponseCode,
+      ResponseDescription,
+      CustomerMessage,
+    } = response.data;
+    res.status(200).json({ ResponseDescription });
   } catch (error) {
-    console.log(error.message);
     next(error);
   }
 };
 
 const stkPushCallback = async (req, res, next) => {
-  console.log( "The endpoint has been hit")
+  console.log("The endpoint has been hit");
   try {
     const { orderID } = req.params;
-    const {MerchantRequestID,  CheckoutRequestID, ResultCode,  ResultDesc} = req.body.Body.stkCallback
-    console.log(reqBody);
+    console.log(req.body);
+    // const {MerchantRequestID,  CheckoutRequestID, ResultCode,  ResultDesc} = req.body.Body.stkCallback
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
