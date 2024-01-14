@@ -17,7 +17,7 @@ const initiateStkPush = async (req, res, next) => {
   const shortCode = process.env.shortCode;
   const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
   try {
-    await axios.post(
+     const response = await axios.post(
       url,
       {
         BusinessShortCode: shortCode,
@@ -34,25 +34,24 @@ const initiateStkPush = async (req, res, next) => {
       },
       {
         headers: {
-         //  "Content-Type": "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       }
     );
-   //  console.log(`stkPush response: ${response}`);
-    res.status(200).json({"message": "Hello world"});
+    const decodedObject = JSON.stringify(response.data)
+    res.status(200).json(decodedObject);
   } catch (error) {
     console.log(error.message);
     next(error);
   }
-
-  res.status(200).json({ message: "This is the initiate stk push route " });
 };
 
 const stkPushCallback = async (req, res, next) => {
+  console.log( "The endpoint has been hit")
   try {
     const { orderID } = req.params;
-    const reqBody = req.body;
+    const {MerchantRequestID,  CheckoutRequestID, ResultCode,  ResultDesc} = req.body.Body.stkCallback
     console.log(reqBody);
     res.sendStatus(200);
   } catch (error) {
